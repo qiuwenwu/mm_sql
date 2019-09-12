@@ -619,18 +619,4 @@ class Sql {
 	}
 }
 
-async function test() {
-	var sql = new Sql();
-	var paramDt = {
-		a: -123,
-		b: "bbs"
-	};
-	var sqlDt = {
-		a: "`a` = `a` + {0}"
-	};
-	var sql = sql.tpl_body(paramDt, sqlDt);
-	console.log(sql);
-}
-test();
-
 module.exports = Sql;
