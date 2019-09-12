@@ -4,7 +4,7 @@
  * @version 1.2.1
  */
 require('mm_expand');
- 
+
 /**
  * @class 数据库语法通用类
  * @property {Function} filter 设置并过滤参数
@@ -608,7 +608,7 @@ class Sql {
 			} else {
 				for (var key in paramDt) {
 					if (sqlDt[key]) {
-						sql += " , " + sqlDt[key].replace("{0}", paramDt[key]);
+						sql += " , " + sqlDt[key].replace("{0}", paramDt[key]).replace('+ -', '- ').replace('- -', '+ ');
 					} else {
 						sql += " , `" + key + "`='" + paramDt[key] + "'";
 					}
@@ -618,5 +618,19 @@ class Sql {
 		};
 	}
 }
+
+async function test() {
+	var sql = new Sql();
+	var paramDt = {
+		a: -123,
+		b: "bbs"
+	};
+	var sqlDt = {
+		a: "`a` = `a` + {0}"
+	};
+	var sql = sql.tpl_body(paramDt, sqlDt);
+	console.log(sql);
+}
+test();
 
 module.exports = Sql;
